@@ -4,7 +4,7 @@ from django.utils import timezone
 
 class Post(models.Model):
 
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, unique=True)
     description = models.TextField()
     image = models.ImageField(upload_to='imagens/')

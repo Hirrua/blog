@@ -1,9 +1,15 @@
 from django.contrib.auth.decorators import login_required
+from apps.blog.models import Post
 from django.shortcuts import redirect
+from apps.blog.models import Post
 from .forms import PostForm
 from django.shortcuts import render
 
 #CRUD
+
+@login_required()
+def painel(request):
+    return render(request, 'painel/painel.html')
 
 @login_required()
 def criar_post(request):
@@ -16,7 +22,6 @@ def criar_post(request):
             #return render(request, 'painel.html')
     else:
         form = PostForm()
-    print("RTESTETSETSTESTE")
     return render(request, 'painel/post_forms.html', {"form": form})
         
 

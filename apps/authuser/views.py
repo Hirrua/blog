@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.http.response import HttpResponse
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as django_login
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 #função login
 def login(request):
@@ -17,8 +17,10 @@ def login(request):
 
         if user:
             django_login(request, user)
+            next_path = request.GET.get('next', 'painel')
+            return redirect(next_path)
             #return HttpResponse("Logado com sucesso")
-            return render(request, 'painel/painel.html')
+            #return render(request, 'painel/painel.html')
         else:
             return HttpResponse("ERRO")
         

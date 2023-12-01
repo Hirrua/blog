@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<a href="{% url 'criar_post' %}">Criar post</a>
-
     {% for post in posts %}
         <p>{{post.title}}</p>
+        <img src="{{post.image.url}}" width="80">
     {% endfor %}
 {% endblock %}

@@ -4,9 +4,6 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as django_login
 from django.shortcuts import render
 
-#função logout
-#função cadastro
-
 #função login
 def login(request):
     if request.method == 'GET':

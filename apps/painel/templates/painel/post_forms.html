@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %} Criar Post {% endblock %}
+
+{% block content %}
+    <form action="{% if request.method == 'POST' %} {% url 'criar_post' %} {% endif %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }} <!--as_p cria os forms por paragrafos-->
+        <button type="submit">Criar</button>
+    </form>
+{% endblock %}

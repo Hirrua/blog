@@ -3,9 +3,6 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -30,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.blog',
     'apps.authuser',
+    'apps.painel'
 ]
 
 MIDDLEWARE = [
@@ -47,7 +45,7 @@ ROOT_URLCONF = 'setup.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'apps', 'blog', 'authuser','templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True, # procura pelos de templates dentro de cada aplicativo
         'OPTIONS': {
             'context_processors': [

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-<!--extends esse post-->
 {% block content %}
+    {% block title %} HOME {% endblock %}
     {% for post in posts %}
         <p>{{post.title}}</p>
         <img src="{{post.image.url}}" width="80">

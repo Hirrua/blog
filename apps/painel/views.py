@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
 from django.urls import reverse
 from apps.blog.models import Post
 from django.shortcuts import get_object_or_404, redirect
@@ -10,6 +9,7 @@ from django.shortcuts import render
 @login_required(login_url='/login/')
 def painel(request):
     posts = Post.objects.all()
+    #posts = Post.objects.filter(author=request.user)
     return render(request, 'painel/painel.html', {'posts': posts})
 
 @login_required(login_url='/login/')
@@ -36,6 +36,6 @@ def editar_post(request, id):
 
 @login_required(login_url='/login/')
 def deletar_post(request, id):
-    post = Post.objects.get(id=id)
+    post = get_object_or_404(Post, id=id)
     post.delete()
     return redirect(reverse('painel'))

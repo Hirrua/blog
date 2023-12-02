@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-   <p>PAINEL</p>
+   {% block title %} PAINEL ADMIN {% endblock %}
    {% for post in posts %}
       <p>{{post.title}}</p>
       <img src="{{post.image.url}}" width="80">

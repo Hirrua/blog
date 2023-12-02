@@ -10,7 +10,8 @@ from django.shortcuts import render
 
 @login_required()
 def painel(request):
-    return render(request, 'painel/painel.html')
+    posts = Post.objects.all()
+    return render(request, 'painel/painel.html', {'posts': posts})
 
 @login_required()
 def criar_post(request):
@@ -18,17 +19,12 @@ def criar_post(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save(commit=False)
-            #post = request.user
-            #post.save()
             form.save()
-            return redirect('post_list')
-            #return render(request, 'painel.html')
+            return redirect('painel')
     else:
         form = PostForm()
-    #posts = Post.objects.filter(author=request.user)
-    return render(request, 'painel/post_forms.html',  {"form": form, })
+    return render(request, 'painel/post_forms.html', {"form": form})
         
-
 @login_required()
 def post_edit(request, id):
     post = get_object_or_404(Post, id=id)
@@ -36,9 +32,9 @@ def post_edit(request, id):
     if form.is_valid():
         form.save()
         return redirect('detalhes', id=post.id)
-    return render(request, 'painel/post_forms.html',  {"form": form, })
+    return render(request, 'painel/post_forms.html',  {"form": form})
 
 @login_required()
-def deletar_post():
+def deletar_post(request, id):
     pass
     

@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-   <p>TESTE</p>
+   <p>PAINEL</p>
+   {% for post in posts %}
+      <p>{{post.title}}</p>
+   {% endfor %}
    <a href="{% url 'criar_post' %}">Criar post</a>
 {% endblock %}

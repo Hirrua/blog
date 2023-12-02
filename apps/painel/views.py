@@ -16,13 +16,16 @@ def criar_post(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            form = form.save(commit=False)
+            form.save(commit=False)
+            #post = request.user
+            #post.save()
             form.save()
             return redirect('post_list')
             #return render(request, 'painel.html')
     else:
         form = PostForm()
-    return render(request, 'painel/post_forms.html', {"form": form})
+    #posts = Post.objects.filter(author=request.user)
+    return render(request, 'painel/post_forms.html',  {"form": form, })
         
 
 @login_required()

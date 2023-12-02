@@ -13,5 +13,5 @@ def post_list(request):
 
 def detlhes_post(request, id):
     #posts = Post.objects.get(id=id)
-    posts = get_object_or_404(Post, id=id)
+    posts = get_object_or_404(Post, id=id) #.select_relate('author')
     return render(request, 'blog/post_detail.html', {'posts': posts})

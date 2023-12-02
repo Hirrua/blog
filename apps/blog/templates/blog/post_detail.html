@@ -3,4 +3,6 @@
     <h2>{{posts.title}}</h2>
     <img src="{{posts.image.url}}" width="300">
     <p>{{posts.description}}</p>
+    <p>{{posts.author.get_full_name}}</p>
+    <p>{{posts.created_date}}</p>
 {% endblock %}

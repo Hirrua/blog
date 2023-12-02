@@ -1,6 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http.response import HttpResponse
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as django_login
 from django.shortcuts import render, redirect
 
@@ -23,4 +24,8 @@ def login(request):
             #return render(request, 'painel/painel.html')
         else:
             return HttpResponse("ERRO")
-        
+
+@login_required(login_url='/login/')
+def sair(request):
+    logout(request)
+    return redirect('post_list')

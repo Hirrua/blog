@@ -2,7 +2,8 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    path('painel/', views.painel, name='painel'),
+    path('', views.painel, name='painel'),
     path('criar_post/', views.criar_post, name='criar_post'),
-    path('post_edit/<int:id>/', views.post_edit, name='post_edit')
+    path('editar_post/<int:id>/', views.editar_post, name='editar_post'),   
+    path('deletar_post/<int:id>/', views.deletar_post, name='deletar_post')
 ]

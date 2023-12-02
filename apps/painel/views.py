@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from apps.blog.models import Post
 from django.shortcuts import get_object_or_404, redirect
 from apps.blog.models import Post
 from .forms import PostForm
 from django.shortcuts import render
-
-#CRUD
 
 @login_required(login_url='/login/')
 def painel(request):
@@ -26,7 +26,7 @@ def criar_post(request):
     return render(request, 'painel/post_forms.html', {"form": form})
         
 @login_required(login_url='/login/')
-def post_edit(request, id):
+def editar_post(request, id):
     post = get_object_or_404(Post, id=id)
     form = PostForm(request.POST or None, request.FILES, instance=post)
     if form.is_valid():
@@ -36,4 +36,6 @@ def post_edit(request, id):
 
 @login_required(login_url='/login/')
 def deletar_post(request, id):
-    pass
+    post = Post.objects.get(id=id)
+    post.delete()
+    return redirect(reverse('painel'))

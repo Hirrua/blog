@@ -4,7 +4,8 @@
    {% for post in posts %}
       <p>{{post.title}}</p>
       <img src="{{post.image.url}}" width="80">
-      <a href="{% url 'post_edit' post.id%}">Atualizar</a>
+      <a href="{% url 'editar_post' post.id%}">Atualizar</a>   
+      <a href="{% url 'deletar_post' post.id%}">Deletar</a>
    {% endfor %}
    <a href="{% url 'criar_post' %}">Criar post</a>
 {% endblock %}

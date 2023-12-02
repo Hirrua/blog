@@ -7,7 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.blog.urls')),
     path('', include('apps.authuser.urls')),
-    path('', include('apps.painel.urls'))
+    path('painel/', include('apps.painel.urls'))
 ]
 
 #urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

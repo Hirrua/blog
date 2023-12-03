@@ -2,14 +2,15 @@
 {% load static %}
 {% block title %}Login{% endblock %}
 {% block content %}
-    <div class="modal-body">
-        <form action="{% url 'login' %}" method="POST">
+    <div class="modal-body d-flex justify-content-center align-items-center vh-100 flex-column">
+        <h3 class="text-center font-weight-bold mb-4">Login</h3>
+        <form class="p-4 border rounded text-center" action="{% url 'login' %}" method="POST">
             {% csrf_token %}
-            <div class="mb-3 mt-3">
-                <input class="form-control" type="text" placeholder="Nome de usuário" name="username">
+            <div class="mb-3">
+                <input class="form-control-lg" type="text" placeholder="Nome de usuário" name="username">
             </div>
-            <div class="mb-3 mt-3">
-                <input class="form-control" type="password" placeholder="Senha" name="senha">
+            <div class="mb-3">
+                <input class="form-control-lg" type="password" placeholder="Senha" name="senha">
             </div>
             <input type="hidden" name="next" value="{{ request.GET.next|default:'' }}">
             <button type="submit" class="btn btn-primary">Entrar</button>

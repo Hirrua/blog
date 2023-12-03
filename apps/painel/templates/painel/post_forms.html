@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
-{% block title %} Criar Post {% endblock %}
+{% load static %}
+{% block title %}Criar e Atualizar{% endblock %}
 
 {% block content %}
     <form action="{% if request.method == 'POST' %} {% url 'criar_post' %} {% endif %}" method="POST" enctype="multipart/form-data">

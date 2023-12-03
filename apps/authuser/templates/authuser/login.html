@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% block title %}Login{% endblock %}
 {% block content %}
-    <form class="container" action="{% url 'login' %}" method="POST">
-        {% csrf_token %}
-        <input type="text" placeholder="Nome de usuário" name="username">
-        <input type="password" placeholder="Senha" name="senha">
-        <input type="hidden" name="next" value="{{ request.GET.next|default:'' }}">
-        <button type="submit">Entrar</button>
-    </form>
+    <div class="modal-body">
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <div class="mb-3 mt-3">
+                <input class="form-control" type="text" placeholder="Nome de usuário" name="username">
+            </div>
+            <div class="mb-3 mt-3">
+                <input class="form-control" type="password" placeholder="Senha" name="senha">
+            </div>
+            <input type="hidden" name="next" value="{{ request.GET.next|default:'' }}">
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+    </div>
+   
 {% endblock %}
+

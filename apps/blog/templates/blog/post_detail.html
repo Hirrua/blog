@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>{{posts.title}}</h2>
-    <img src="{{posts.image.url}}" width="300">
-    <p>{{posts.description}}</p>
-    <p>{{posts.author.get_full_name}}</p>
-    <p>{{posts.created_date}}</p>
+    <div class="text-center">
+        <h2>{{posts.title}}</h2>
+        <p>{{posts.description}}</p>
+        <img src="{{posts.image.url}}" width="80%" alt="{{post.title}}">
+        <p>{{posts.author.get_full_name}}</p>
+        <p>{{posts.created_date}}</p>
+    </div>
 {% endblock %}

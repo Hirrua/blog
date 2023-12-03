@@ -25,7 +25,7 @@ def login(request):
         else:
             return HttpResponse("ERRO")
 
-'''@login_required(login_url='/login/')
+@login_required(login_url='/login/')
 def sair(request):
     logout(request)
-    return redirect('post_list')'''
+    return redirect('post_list')

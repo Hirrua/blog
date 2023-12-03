@@ -3,9 +3,21 @@
 {% block title %}Criar e Atualizar{% endblock %}
 
 {% block content %}
-    <form action="{% if request.method == 'POST' %} {% url 'criar_post' %} {% endif %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }} <!--as_p cria os forms por paragrafos-->
-        <button type="submit">Criar</button>
-    </form>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'painel' %}">Painel admin</a>
+        </div>      
+    </nav>
+    <div class="d-flex justify-content-center align-items-center vh-100 flex-column">
+        <h3 class="font-weight-bold mb-4">Criar e Atualizar Postagem</h3>
+        <div class="row p-4 border rounded">
+            <div class="col-md-6">
+                <form action="{% if request.method == 'POST' %} {% url 'criar_post' %} {% endif %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }} <!--as_p cria os forms por paragrafos-->
+                </form>
+            </div>
+            <button class="btn btn-success" type="submit">Criar</button>
+        </div>
+    </div>
 {% endblock %}

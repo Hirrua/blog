@@ -8,8 +8,8 @@ from django.shortcuts import render
 
 @login_required(login_url='/login/')
 def painel(request):
-    posts = Post.objects.all()
-    #posts = Post.objects.filter(author=request.user)
+    #posts = Post.objects.all()
+    posts = Post.objects.filter(author=request.user)
     return render(request, 'painel/painel.html', {'posts': posts})
 
 @login_required(login_url='/login/')

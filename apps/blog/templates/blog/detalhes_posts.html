@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Detalhes {% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Creative Blog</a>
+            <div class="ml-auto">
+                <a class="navbar-text text-white" href="{% url 'login' %}">Login</a>
+            </div>
+        </div>      
+    </nav>
+
+    <div class="container mt-4">
+        <h2 class="text-center">{{posts.title}}</h2>
+        <p>{{posts.description}}</p>
+        <img class="mb-4 img-fluid" src="{{posts.image.url}}" alt="{{post.title}}">
+        <p>{{posts.author.get_full_name}}</p>
+        <p>{{posts.created_date}}</p>
+    </div>
+{% endblock %}

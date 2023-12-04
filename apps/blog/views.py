@@ -7,11 +7,10 @@ from .models import Post
 from . import views
 
 #funão listar -> livre sem login
-def post_list(request):
+def home(request):
     posts = Post.objects.all()
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    return render(request, 'blog/home.html', {'posts': posts})
 
 def detlhes_post(request, id):
-    #posts = Post.objects.get(id=id)
-    posts = get_object_or_404(Post, id=id) #.select_relate('author')
-    return render(request, 'blog/post_detail.html', {'posts': posts})
+    posts = Post.objects.get(id=id)
+    return render(request, 'blog/detalhes_posts.html', {'posts': posts})

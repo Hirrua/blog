@@ -28,30 +28,42 @@
     </nav>
 
     <div class="container mt-4">
-        <h2 class="text-center">{{posts.title}}</h2>
-        <p class="text-justify">{{posts.description}}</p>
-        <img class="mb-4 img-fluid" src="{{posts.image.url}}" alt="{{post.title}}">
-        <p>Autor: {{posts.author}}</p>
-        <p>Data: {{posts.created_date}}</p>
+        <h2 class="text-center">{{post.title}}</h2>
+        <p>{{post.description}}</p>
+        <img class="mb-4 img-fluid" src="{{post.image.url}}" alt="{{post.title}}">
+        <p>{{post.description}}</p>
+        <p>Autor: {{post.author}}</p>
+        <p>Data: {{post.created_date}}</p>
     </div>
 
     <div class="container">
         <hr>
-        <h3>Comentarios</h3>
-        {% if comments.all %}
-            {% for comentario in comments.all %}
+        <h3>Comentários</h3>
+        {% if comentarios %}
+            {% for comentario in comentarios %}
+            <div class="border p-3 mb-3">
                 <strong>
-                    {{comentario.nome}} - {{comentario.created_date}}
+                    {{ comentario.nome }} - {{ comentario.created_date }}
                 </strong>
                 <br>
                 <p>
-                    {{comentario.comentario}}
+                    {{ comentario.comentario }}
                 </p>
                 <br>
-                <br>
+            </div>
             {% endfor %}
         {% else %}
-            <p>Nenhum comentario</p>
+            <p>Nenhum comentário</p>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <form class="form-control mt-4 text-center" method="post" action="{% url 'detalhes' id=post.id %}">
+                {% csrf_token %}
+                {{ form.comentario }}
+                <button class="btn btn-success mt-2" type="submit">Comentar</button>
+            </form>
+        {% else %}
+            <p class="text-center mt-4">Faça <a class="link-primary" href="{% url 'login' %}">login</a> para comentar.</p>
         {% endif %}
     </div>
 {% endblock %}

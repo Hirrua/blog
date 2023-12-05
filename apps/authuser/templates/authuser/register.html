@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Cadastro{% endblock %}
+{% block content %}
+    <div class="modal-body d-flex justify-content-center align-items-center vh-100 flex-column">
+        <h3 class="text-center font-weight-bold mb-4">Criar conta</h3>
+        <form class="p-4 border rounded text-center" action="{% url 'registrar' %}" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input class="form-control-lg" type="text" placeholder="Nome de usuário" name="username">
+            </div>
+            <div class="mb-3">
+                <input class="form-control-lg" type="password" placeholder="Senha" name="senha">
+            </div>
+            <input type="hidden" name="next" value="{{ request.GET.next|default:'' }}">
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
+    </div>  
+{% endblock %}

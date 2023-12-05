@@ -5,25 +5,46 @@ from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as django_login
 from django.shortcuts import render, redirect
 
+def registrar(request):
+    if request.method == 'GET':
+        return render(request, "authuser/register.html")
+    else:
+        usuario = request.POST.get('username')
+        senha = request.POST.get('senha')
+        
+        user = User.objects.filter(username=usuario).first()
+        
+        if user:
+            return HttpResponse("Usuário já cadastrado!!")
+        
+        user = User.objects.create_user(username=usuario, password=senha)
+        user.save()
+
+        user = authenticate(request, username=usuario, password=senha)
+        django_login(request, user)
+
+        return redirect('home')
+
+
 #função login
 def login(request):
     if request.method == 'GET':
         return render(request, "authuser/login.html")
     else: 
-        #utilizar um form, metodo post e se email e senha estiverem OK, vai fazer um login e retornar para painel, senão volta para tela de login com erro
-        username = request.POST.get('username')
+        usuario = request.POST.get('username')
         senha = request.POST.get('senha')
-
-        user = authenticate(username=username, password=senha)
+        user = authenticate(username=usuario, password=senha)
 
         if user:
             django_login(request, user)
-            next_path = request.GET.get('next', 'painel')
-            return redirect(next_path)
-            #return HttpResponse("Logado com sucesso")
-            #return render(request, 'painel/painel.html')
+            if request.user.is_superuser:
+                next_path = request.GET.get('next', 'painel')
+                return redirect(next_path)
+            else:
+                next_path = request.GET.get('next', 'home')
+                return redirect(next_path)
         else:
-            return HttpResponse("ERRO")
+            return HttpResponse("Credenciais inválidas!!")
 
 @login_required(login_url='/login/')
 def sair(request):

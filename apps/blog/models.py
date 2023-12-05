@@ -15,3 +15,16 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Comentario(models.Model):
+
+    post = models.ForeignKey(Post, related_name="comentarios",on_delete=models.CASCADE)
+    nome = models.CharField(max_length=100)
+    comentario = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_date']
+
+    def __str__(self):
+        return self.nome

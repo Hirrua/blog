@@ -6,17 +6,52 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">Creative Blog</a>
-            <div class="ml-auto">
-                <a class="navbar-text text-white" href="{% url 'login' %}">Login</a>
-            </div>
+            <ul class="navbar-nav ml-auto">
+                {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white mr-2" href="{% url 'registrar' %}">Registrar</a>
+                    </li>
+                {% elif user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'painel' %}">Painel</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="link-danger ml-2" href="{% url 'sair' %}">Sair</a>
+                    </li>
+                {% endif %}
+            </ul>       
         </div>      
     </nav>
 
     <div class="container mt-4">
         <h2 class="text-center">{{posts.title}}</h2>
-        <p>{{posts.description}}</p>
+        <p class="text-justify">{{posts.description}}</p>
         <img class="mb-4 img-fluid" src="{{posts.image.url}}" alt="{{post.title}}">
-        <p>{{posts.author.get_full_name}}</p>
-        <p>{{posts.created_date}}</p>
+        <p>Autor: {{posts.author}}</p>
+        <p>Data: {{posts.created_date}}</p>
+    </div>
+
+    <div class="container">
+        <hr>
+        <h3>Comentarios</h3>
+        {% if comments.all %}
+            {% for comentario in comments.all %}
+                <strong>
+                    {{comentario.nome}} - {{comentario.created_date}}
+                </strong>
+                <br>
+                <p>
+                    {{comentario.comentario}}
+                </p>
+                <br>
+                <br>
+            {% endfor %}
+        {% else %}
+            <p>Nenhum comentario</p>
+        {% endif %}
     </div>
 {% endblock %}

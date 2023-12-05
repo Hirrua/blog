@@ -1,41 +1,60 @@
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from apps.blog.models import Post
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from apps.blog.models import Post
 from .forms import PostForm
 from django.shortcuts import render
 
 @login_required(login_url='/login/')
 def painel(request):
-    #posts = Post.objects.all()
-    posts = Post.objects.filter(author=request.user)
-    return render(request, 'painel/painel.html', {'posts': posts})
+    if request.user.is_superuser:
+
+        posts = Post.objects.filter(author=request.user)
+        return render(request, 'painel/painel.html', {'posts': posts})
+    else: 
+        return redirect('home')  
 
 @login_required(login_url='/login/')
 def criar_post(request):
-    if request.method == "POST":
-        #if request.user.is_superuser:
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save(commit=False)
-            form.save()
-            return redirect('painel')
+
+    if request.user.is_superuser:
+
+        if request.method == "POST":
+            form = PostForm(request.POST, request.FILES)
+
+            if form.is_valid():
+                form.save(commit=False)
+                form.save()
+                return redirect('painel')
+        else:
+            form = PostForm()
+        return render(request, 'painel/post_forms.html', {"form": form})
     else:
-        form = PostForm()
-    return render(request, 'painel/post_forms.html', {"form": form})
+        return redirect('home')
         
 @login_required(login_url='/login/')
-def editar_post(request, id):
-    post = get_object_or_404(Post, id=id)
-    form = PostForm(request.POST or None, request.FILES, instance=post)
-    if form.is_valid():
-        form.save()
-        return redirect('detalhes', id=post.id)
-    return render(request, 'painel/post_forms.html',  {"form": form})
+def editar_post(request, id):   
+    if request.user.is_superuser:
+
+        post = Post.objects.get(id=id)
+        form = PostForm(request.POST or None, request.FILES, instance=post)
+
+        if form.is_valid():
+            form.save()
+            return redirect('painel')
+        
+        return render(request, 'painel/post_forms.html',  {"form": form})
+    
+    else:
+        return redirect('home')
 
 @login_required(login_url='/login/')
 def deletar_post(request, id):
-    post = get_object_or_404(Post, id=id)
-    post.delete()
-    return redirect(reverse('painel'))
+    if request.user.is_superuser:
+
+        post = Post.objects.get(id=id)
+        post.delete()
+        return redirect(reverse('painel'))
+    else:
+        return redirect('home')

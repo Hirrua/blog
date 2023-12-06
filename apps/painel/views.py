@@ -55,6 +55,6 @@ def deletar_post(request, id):
 
         post = Post.objects.get(id=id)
         post.delete()
-        return redirect(reverse('painel'))
+        return redirect('painel')
     else:
         return redirect('home')

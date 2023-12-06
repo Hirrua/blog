@@ -24,7 +24,6 @@ def criar_post(request):
             form = PostForm(request.POST, request.FILES)
 
             if form.is_valid():
-                form.save(commit=False)
                 form.save()
                 return redirect('painel')
         else:
